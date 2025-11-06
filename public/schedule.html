@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pippor & 2tee ver2 kubbb</title>
+    <link rel="icon" href="assets/icon.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
+    <script>
+        console.log("Sheet ID:", SHEET_ID);
+        console.log("API Key:", API_KEY);
+    </script>
+</head>
+<body class="bg-accent-light text-gray-800">
+
+    <!-- Navbar (แถบนำทาง) -->
+    <nav class="fixed top-0 left-0 w-full bg-white shadow-lg z-50 transition-shadow duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Brand -->
+                <a href="index.html" class="flex-shrink-0 text-2xl font-bold text-primary-blue hover:text-blue-700 transition duration-150">
+                    PTTP
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex md:space-x-4">
+                    <a href="#schedule2025" class="text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150">
+                        <i data-lucide="calendar" class="inline-block w-4 h-4 mr-1"></i> 2025
+                    </a>
+                    <a href="#schedule2024" class="text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150">
+                        <i data-lucide="calendar" class="inline-block w-4 h-4 mr-1"></i> 2024
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-primary-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-blue transition duration-150" aria-expanded="false">
+                        <!-- Icon when menu is closed -->
+                        <i data-lucide="menu" id="menu-icon" class="block h-6 w-6"></i>
+                        <!-- Icon when menu is open (Hidden initially) -->
+                        <i data-lucide="x" id="close-icon" class="hidden h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Collapsed by default) -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#schedule2025" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
+                    <i data-lucide="calendar" class="inline-block w-4 h-4 mr-2"></i> 2025
+                </a>
+                <a href="#schedule2024" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
+                    <i data-lucide="calendar" class="inline-block w-4 h-4 mr-2"></i> 2024
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content (Padding added to offset fixed navbar) -->
+    <main class="pt-16">
+
+        <section id="schedule" class="py-16 px-4 md:py-24 md:px-8 bg-accent-light">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-blue text-center mb-12">
+                    ตารางงาน
+                </h2>
+                <div class="bg-white p-6 rounded-xl shadow-2xl space-y-4 mb-5" id="schedule2025">
+                    <h3 class="text-2xl font-extrabold text-primary-blue border-b-4 border-accent-light pb-2 mb-4">
+                        2025
+                    </h3>
+                    <div class="schedule-grid space-y-4" id="scheduleGrid2025"></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-2xl space-y-4" id="schedule2024">
+                    <h3 class="text-2xl font-extrabold text-primary-blue border-b-4 border-accent-light pb-2 mb-4">
+                        2024
+                    </h3>
+                    <div class="schedule-grid space-y-4" id="scheduleGrid2024"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary-blue text-white p-4 text-center">
+        <p class="text-sm">&copy; Made with Love | By <a href="https://x.com/yorkorrrr" target="_blank">yorkor</a><br/></p>
+    </footer>
+
+    <script>
+        function loadScheduleData(range, elementId) {
+            const grid = document.getElementById(elementId);
+            grid.innerHTML = '<div class="loading-spinner"></div>';
+            
+            fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                .then(res => res.json())
+                .then(data => {
+                    const rows = data.values || [];
+                    grid.innerHTML = rows.map(row => {
+                        const [date, time, artist, title, location, info, img, link, outfit, keyword, tag, note, keylink, taglink, dateformat, month, day, dow] = row;
+                        const getDayColor = (dow) => {
+                            switch (dow) {
+                                case 'Mon': return 'text-yellow-500';
+                                case 'Tue': return 'text-pink-500';
+                                case 'Wed': return 'text-green-500';
+                                case 'Thu': return 'text-orange-500';
+                                case 'Fri': return 'text-blue-500';
+                                case 'Sat': return 'text-purple-500';
+                                case 'Sun': return 'text-pink-500';
+                                default: return 'text-gray-800';
+                            }
+                        };
+
+                        return `
+                            <div class="p-4 bg-white rounded-lg border-l-4 schedule-item flex items-start shadow-sm
+                                ${
+                                    dow === 'Mon' ? 'border-yellow-500' :
+                                    dow === 'Tue' ? 'border-pink-500' :
+                                    dow === 'Wed' ? 'border-green-500' :
+                                    dow === 'Thu' ? 'border-orange-500' :
+                                    dow === 'Fri' ? 'border-blue-500' :
+                                    dow === 'Sat' ? 'border-purple-500' :
+                                    dow === 'Sun' ? 'border-pink-500' : 'border-primary-blue'
+                                }">
+                                <!-- Date Section -->
+                                <div class="w-16 text-center mr-4">
+                                    <div class="bg-gray-100 text-white rounded-lg py-1.5">
+                                        <p class="text-lg font-bold leading-none ${getDayColor(dow)}">${day}</p>
+                                        <p class="text-xs leading-none mt-0.5 ${getDayColor(dow)}">${month}</p>
+                                    </div>
+                                </div>
+                                <!-- Main Content -->
+                                <div class="flex-1">
+                                    <div class="flex items-start">
+                                        <div>
+                                            <p class="font-bold text-gray-800 text-lg" onclick="openLink('${info}')">${title}</p>
+
+                                            ${tag ? `
+                                                <div class="mt-1 mb-2 text-xs space-x-2">
+                                                    ${keyword ? `<span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium">
+                                                        <a href="${keylink}" target="_blank" rel="noopener noreferrer">${keyword}</a>
+                                                    </span>` : ''}
+
+                                                    ${tag ? `<span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium">
+                                                        <a href="${taglink}" target="_blank" rel="noopener noreferrer">${tag}</a>
+                                                    </span>` : ''}
+                                                </div>
+                                            ` : ''}
+
+                                            ${time ? `<p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-clock"></i> ${time}</p>` : ''}
+
+                                            ${location ? `
+                                                <p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> ${location}</p>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+
+                                    ${link ? `
+                                        <div class="mt-2">
+                                            <span class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-full text-xs inline-flex items-center">
+                                                <i class="fa-brands fa-youtube mr-1"></i>
+                                                <a href="${link}" target="_blank" rel="noopener noreferrer">YouTube</a>
+                                                <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
+                                            </span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+
+                                <!-- Image -->
+                                <div class="ml-4 flex-shrink-0 w-28 h-28 md:w-32 md:h-32 overflow-hidden rounded-md border">
+                                    <img src="${img}" alt="poster" class="w-full h-full object-cover" onclick="openPopup(['${img}'])">
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                    lucide.createIcons();
+                });
+        }
+
+        loadScheduleData('2025!A2:Z', 'scheduleGrid2025');
+        loadScheduleData('2024!A2:Z', 'scheduleGrid2024');
+
+    </script>
+
+    <div id="popup" class="popup" onclick="closePopup()">
+        <div class="popup-content" onclick="event.stopPropagation()">
+            <img id="popup-img" src="" alt="Full-size Event Image" onclick="closePopup()">
+            <video id="popup-video" controls style="display: none; max-width: 100%; max-height: 100%;">
+                <source id="video-source" src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <button class="nav-btn prev-btn" onclick="prevMedia()">❮</button>
+            <button class="nav-btn next-btn" onclick="nextMedia()">❯</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

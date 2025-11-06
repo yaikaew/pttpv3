@@ -1,0 +1,88 @@
+html {
+    scroll-behavior: smooth;
+}
+/* Custom scrollbar style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: #93c5fd; /* light blue */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #60a5fa; /* blue */
+}
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 4px, 12px, 0.05);
+}
+/* Make schedule items clearly clickable */
+.schedule-item {
+    /* Ensure the item acts as a block and the hover effect is contained */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease-in-out;
+}
+.schedule-item:hover {
+    /* Retain hover visual feedback on the item but remove pointer cursor */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+/* Style for the logo */
+.text-primary-blue {
+    color: #007bff;
+}
+
+.received {color: green;}
+.nominated {color: red;}
+
+/* popup */
+
+#popup, .popup {
+    display: none; /* Make sure to change to 'flex' when opening */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.popup-content {
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Center items horizontally */
+    justify-content: center;
+    height: 80%; /* Set a fixed height for the popup content */
+    max-width: 90%; /* Adjust maximum width of the content */
+    overflow: hidden; /* Hide overflow to avoid scrollbars */
+}
+.popup-content img {
+    max-width: 100%; /* Ensure the image does not exceed the popup width */
+    max-height: 100%; /* Ensure the image does not exceed the popup height */
+    object-fit: contain; /* Maintain aspect ratio */
+    cursor: pointer;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
