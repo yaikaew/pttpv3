@@ -31,6 +31,7 @@ function replaceIcons() {
 document.addEventListener('DOMContentLoaded', () => {
     replaceIcons(); // Call to render icons after DOM content is loaded
     
+    // 1. Mobile Main Menu Toggle
     const button = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -38,11 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     button.addEventListener('click', () => {
         const isExpanded = menu.classList.contains('hidden');
-        
-        // Toggle visibility of the mobile menu
         menu.classList.toggle('hidden');
         
-        // Toggle icons and aria-expanded attribute
         if (isExpanded) {
             menuIcon.classList.add('hidden');
             closeIcon.classList.remove('hidden');
@@ -53,8 +51,27 @@ document.addEventListener('DOMContentLoaded', () => {
             button.setAttribute('aria-expanded', 'false');
         }
     });
+    
+    // 2. Mobile Shows Submenu Toggle
+    const showsToggle = document.getElementById('mobile-shows-toggle');
+    const showsSubmenu = document.getElementById('mobile-shows-submenu');
+    const showsChevron = document.getElementById('mobile-shows-chevron');
 
-    // Re-render icons after DOM updates (like when toggling the menu, though not strictly needed here)
+    showsToggle.addEventListener('click', (e) => {
+        e.preventDefault(); // ป้องกันไม่ให้ปุ่มทำหน้าที่อื่นนอกจาก Toggle
+        const isShowsExpanded = showsSubmenu.classList.contains('hidden');
+        
+        showsSubmenu.classList.toggle('hidden');
+        
+        if (isShowsExpanded) {
+            showsToggle.setAttribute('aria-expanded', 'true');
+            showsChevron.classList.add('rotate-180');
+        } else {
+            showsToggle.setAttribute('aria-expanded', 'false');
+            showsChevron.classList.remove('rotate-180');
+        }
+    });
+
 });
 
 // Function to close the mobile menu when a link is clicked

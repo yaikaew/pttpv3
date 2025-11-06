@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pttpv3 | schedule</title>
+    <title>pttpv3 | Schedule</title>
     <link rel="icon" href="assets/icon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -23,6 +23,9 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex md:space-x-4">
+                    <a href="#scheduleUpcoming" class="text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150">
+                        <i data-lucide="calendar" class="inline-block w-4 h-4 mr-1"></i> Upcoming
+                    </a>
                     <a href="#schedule2025" class="text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150">
                         <i data-lucide="calendar" class="inline-block w-4 h-4 mr-1"></i> 2025
                     </a>
@@ -46,6 +49,9 @@
         <!-- Mobile Menu (Collapsed by default) -->
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#scheduleUpcoming" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
+                    <i data-lucide="calendar" class="inline-block w-4 h-4 mr-2"></i> Upcoming
+                </a>
                 <a href="#schedule2025" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
                     <i data-lucide="calendar" class="inline-block w-4 h-4 mr-2"></i> 2025
                 </a>
@@ -64,6 +70,12 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-blue text-center mb-12">
                     ตารางงาน
                 </h2>
+                <div class="bg-white p-6 rounded-xl shadow-2xl space-y-4 mb-5" id="scheduleUpcoming">
+                    <h3 class="text-2xl font-extrabold text-primary-blue border-b-4 border-accent-light pb-2 mb-4">
+                        Upcoming
+                    </h3>
+                    <div class="schedule-grid space-y-4" id="scheduleGridUpcoming"></div>
+                </div>
                 <div class="bg-white p-6 rounded-xl shadow-2xl space-y-4 mb-5" id="schedule2025">
                     <h3 class="text-2xl font-extrabold text-primary-blue border-b-4 border-accent-light pb-2 mb-4">
                         2025
@@ -136,7 +148,6 @@
                                                     <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
                                                         <a href="${keylink}" target="_blank" rel="noopener noreferrer">${keyword}</a>
                                                     </span>` : ''}
-
                                                 ${tag ? `
                                                     <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
                                                         <a href="${taglink}" target="_blank" rel="noopener noreferrer">${tag}</a>
@@ -158,9 +169,8 @@
                                         </div>
                                     ` : ''}
                                 </div>
-                                <div class="mt-4 md:mt-0 md:ml-4 w-full md:w-24 aspect-[4/3] md:aspect-auto overflow-hidden rounded-md border">
-                                    <img src="${img}" alt="poster" class="w-full h-full object-cover"
-                                        onclick="openPopup(['${img}'])">
+                                <div class="mt-4 md:mt-0 md:ml-4 flex-shrink-0 w-full md:w-24 md:h-24 overflow-hidden rounded-md border">
+                                    <img src="${img}" alt="poster" class="w-full h-full object-cover" onclick="openPopup(['${img}'${outfit ? `,'${outfit}'` : ''}])">
                                 </div>
                             </div>
                         `;
@@ -169,6 +179,7 @@
                 });
         }
 
+        loadScheduleData('upcoming!A2:Z', 'scheduleGridUpcoming');
         loadScheduleData('2025!A2:Z', 'scheduleGrid2025');
         loadScheduleData('2024!A2:Z', 'scheduleGrid2024');
 
