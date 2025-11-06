@@ -523,9 +523,9 @@
                                 <p class="text-sm text-gray-500 mt-1">${award2}</p>
                             </div>
                         </div>
-                        <div class="mt-4 md:mt-0 md:ml-4 flex-shrink-0 w-full md:w-24 md:h-24 overflow-hidden rounded-md border">
+                        <!-- <div class="mt-4 md:mt-0 md:ml-4 flex-shrink-0 w-full md:w-24 md:h-24 overflow-hidden rounded-md border">
                             <img src="${img}" alt="poster" class="w-full h-full object-cover" onclick="openPopup(['${img}'])">
-                        </div>
+                        </div> -->
                     </div>
                 `;
             }
@@ -621,16 +621,18 @@
                                         <div class="flex items-start">
                                             <div>
                                                 <p class="font-bold text-gray-800 text-lg" onclick="openLink('${info}')">${title}</p>
-                                                <div class="mt-1 mb-2 text-xs flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
-                                                    ${keyword ? `
-                                                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
-                                                            <a href="${keylink}" target="_blank" rel="noopener noreferrer">${keyword}</a>
-                                                        </span>` : ''}
-                                                    ${tag ? `
-                                                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
-                                                            <a href="${taglink}" target="_blank" rel="noopener noreferrer">${tag}</a>
-                                                        </span>` : ''}
-                                                </div>
+                                                ${tag ? `
+                                                    <div class="mt-1 mb-2 text-xs flex flex-col md:flex-row md:space-x-2 space-y-2 md:space-y-0">
+                                                        ${keyword ? `
+                                                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
+                                                                <a href="${keylink}" target="_blank" rel="noopener noreferrer">${keyword}</a>
+                                                            </span>` : ''}
+                                                        ${tag ? `
+                                                            <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium w-fit">
+                                                                <a href="${taglink}" target="_blank" rel="noopener noreferrer">${tag}</a>
+                                                            </span>` : ''}
+                                                    </div>
+                                                ` : ''}
                                                 ${time ? `<p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-clock"></i> ${time}</p>` : ''}
                                                 ${location ? `
                                                     <p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> ${location}</p>
