@@ -255,43 +255,261 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-blue text-center mb-12">
                     Series
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="filmGrid">
-                    <div class="bg-white p-6 rounded-xl shadow-xl card-hover flex flex-col h-full">
-                        <div class="w-full aspect-[3/4] overflow-hidden rounded-lg mb-4">
-                            <img src="https://pbs.twimg.com/media/GcjdDQYaMAIjOfF?format=jpg&name=4096x4096" alt="กี่หมื่นฟ้า Your Sky Series" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">กี่หมื่นฟ้า Your Sky Series</h3>
-                        <p class="text-gray-600 mb-2">Por as Punlee - Sasin Phisut<br/>TeeTee as Ghlaijai - Ghlaijai Burirat</p>
-                        <a href="https://youtube.com/playlist?list=PLcTibKbv20S4l3tuUU0ydM9BzZEc0nrLm" target="_blank"
-                            class="mt-auto inline-block text-center bg-primary-blue text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition">
-                            🎬 Rerun
-                        </a>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-xl card-hover flex flex-col h-full">
-                        <div class="w-full aspect-[3/4] overflow-hidden rounded-lg mb-4">
-                            <img src="https://pbs.twimg.com/media/GmZg7Lhb0AAYn69?format=jpg&name=medium" alt="กี่หมื่นฟ้า Your Sky Of Us" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">กี่หมื่นฟ้า Your Sky Of Us</h3>
-                        <p class="text-gray-600 mb-2">Por as Punlee - Sasin Phisut<br/>TeeTee as Ghlaijai - Ghlaijai Burirat</p>
-                        <a href="" target="_blank"
-                            class="mt-auto inline-block text-center bg-primary-blue text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition">
-                            🎬 Rerun
-                        </a>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-xl card-hover flex flex-col h-full">
-                        <div class="w-full aspect-[3/4] overflow-hidden rounded-lg mb-4">
-                            <img src="https://pbs.twimg.com/media/GkPQY-oa0AAZaIa?format=jpg&name=4096x4096" alt="ด้วงกับเธอ Duang With You Series" class="w-full h-full object-cover">
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">ด้วงกับเธอ Duang With You Series</h3>
-                        <p class="text-gray-600 mb-2">TeeTee as Duang<br/>Por as Qin</p>
-                        <a href="" target="_blank"
-                            class="mt-auto inline-block text-center bg-primary-blue text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition">
-                            🎬 Official Pilot
-                        </a>
-                    </div>
+                <div id="filmography-list" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <p class="text-center col-span-full p-8 text-gray-600">Loading filmography data...</p>
                 </div>
             </div>
         </section>
+        <div id="details-modal" class="fixed inset-0 z-50 hidden opacity-0 transition-opacity duration-300 bg-black/50 flex items-center justify-center p-4" onclick="closeDetailsModal()">
+            <div class="bg-card-bg w-full max-w-3xl rounded-xl shadow-2xl transform transition-all duration-300" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center p-4 border-b border-gray-200">
+                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900">Title</h3>
+                    <button onclick="closeDetailsModal()" class="text-gray-400 hover:text-gray-700 transition duration-150 p-2 rounded-full hover:bg-gray-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="modal-body overflow-y-auto p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div id="modal-poster-container" class="md:col-span-1">
+                            <div class="relative w-full aspect-[3/4] mx-auto max-w-xs group">
+                                <img id="modal-poster-slider" src="https://placehold.co/300x400/cccccc/333333?text=POSTER+N/A" alt="Film image" class="w-full h-full rounded-lg shadow-lg object-cover">
+                                
+                                <button id="nav-left" onclick="navigateImage(-1)" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                                
+                                <button id="nav-right" onclick="navigateImage(1)" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+        
+                                <div id="image-counter" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/50 text-white text-xs px-2 py-1 rounded-full"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Details -->
+                        <div class="md:col-span-1 space-y-4 text-base text-gray-700">
+                            <h4 class="text-xl font-semibold text-primary-blue mb-3 border-b pb-2">Work Details</h4>
+                            <p id="modal-role"></p>
+                            <p id="modal-date"></p>
+                            <p id="modal-platform"></p>
+                            <p id="modal-episodes"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer (Watch Now Button) -->
+                <div class="p-4 border-t border-gray-200 flex justify-end">
+                    <a id="modal-link" href="#" target="_blank" 
+                    class="bg-primary-blue text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-secondary/90 transition duration-300 transform hover:scale-[1.02] text-center w-full md:w-auto">
+                        Watch Now
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <script>
+            let filmographyData = [];
+            let currentImageIndex = 0;
+            let currentFilmImages = [];
+
+            const RANGE = 'series!A2:Z';
+
+            const GSHEET_URL = `/api/spreadsheets?range=${encodeURIComponent(range)}`;
+            
+            const keys = ['title', 'role', 'date', 'platform', 'episodes', 'link', 'link2', 'poster', 'image2', 'image3', 'image4'];
+
+            function displayValue(value) {
+                return value ? value : '-';
+            }
+
+            // 2. Function to parse the Sheets V4 JSON response
+            function parseSheetsV4Data(json) {
+                const data = [];
+                const rows = json.values;
+                if (!rows || rows.length === 0) return data; 
+
+                // Assuming no header row is included in the specified RANGE (A2:Z or similar)
+                rows.forEach(row => {
+                    const entry = {};
+                    keys.forEach((key, j) => {
+                        // Map column data to keys
+                        entry[key] = row[j] || ''; 
+                    });
+                    
+                    // Basic check to ensure valid entry
+                    if (entry.title) {
+                        data.push(entry);
+                    }
+                });
+
+                return data;
+            }
+
+            // 3. Function to fetch data from Google Sheets (V4 API)
+            async function fetchFilmographyData() {
+                const listContainer = document.getElementById('filmography-list');
+                if (listContainer) {
+                    listContainer.innerHTML = '<p class="text-center col-span-full p-8 text-gray-600">Loading filmography data...</p>';
+                }
+                
+                if (!API_KEY) {
+                    listContainer.innerHTML = '<p class="text-red-600 text-center col-span-full p-8 bg-white rounded-xl shadow-lg">⚠️ API_KEY is missing. Please provide your Google API Key and ensure Sheets API is enabled.</p>';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(GSHEET_URL);
+                    const json = await response.json();
+
+                    if (!response.ok || json.error) {
+                        throw new Error(`API Error: ${json.error?.message || response.statusText}`);
+                    }
+                    
+                    filmographyData = parseSheetsV4Data(json);
+
+                    if (filmographyData.length > 0) {
+                        generateFilmCards();
+                    } else {
+                        listContainer.innerHTML = '<p class="text-red-600 text-center col-span-full p-8 bg-white rounded-xl shadow-lg">⚠️ No filmography data found in Google Sheet. Check your RANGE and API Key permissions.</p>';
+                    }
+
+                } catch (error) {
+                    console.error("Could not fetch data:", error);
+                    if(listContainer) {
+                        listContainer.innerHTML = `<p class="text-red-600 text-center col-span-full p-8 bg-white rounded-xl shadow-lg">⚠️ Could not load data. Check console for error details. Message: ${error.message}</p>`;
+                    }
+                }
+            }
+            
+            // 4. Function to generate HTML Cards (Using the new structure and 3:4 aspect ratio)
+            function generateFilmCards() {
+                const listContainer = document.getElementById('filmography-list');
+                if (!listContainer) return;
+
+                // Clear the loading message
+                listContainer.innerHTML = ''; 
+
+                if (filmographyData.length === 0) {
+                    listContainer.innerHTML = '<p class="text-gray-600 text-center col-span-full p-8 bg-white rounded-xl shadow-lg">No joint filmography found.</p>';
+                    return;
+                }
+
+                // Create Cards using the user's requested structure (3:4 aspect ratio)
+                listContainer.innerHTML = filmographyData.map((film, index) => `
+                    <div class="bg-white p-6 rounded-xl shadow-xl card-hover flex flex-col h-full cursor-pointer transition duration-300" onclick="showDetailsModal(${index})">
+                        <div class="w-full aspect-[3/4] overflow-hidden rounded-lg mb-4">
+                            <img 
+                                src="${film.poster}" 
+                                alt="Poster for ${film.title}" 
+                                class="w-full h-full object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/333333?text=POSTER+N/A';"
+                            >
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">${film.title}</h3>
+                        <p class="text-gray-600 mb-2">${film.role}</p>
+                        <!-- Removed the link here, kept the modal trigger on the whole div -->
+                    </div>
+                `).join('');
+            }
+            
+            // --- CAROUSEL LOGIC ---
+
+            // Function to update the displayed image and button states
+            function updateCarouselUI() {
+                const imgElement = document.getElementById('modal-poster-slider');
+                const counterElement = document.getElementById('image-counter');
+                const navLeft = document.getElementById('nav-left');
+                const navRight = document.getElementById('nav-right');
+
+                if (!imgElement || currentFilmImages.length === 0) return;
+
+                // Update image source
+                const imageUrl = currentFilmImages[currentImageIndex];
+                imgElement.src = imageUrl;
+                imgElement.onerror = function() { this.src='https://placehold.co/300x400/cccccc/333333?text=IMAGE+N/A'; };
+                
+                // Update counter
+                counterElement.textContent = `${currentImageIndex + 1} / ${currentFilmImages.length}`;
+
+                // Update button states
+                navLeft.disabled = (currentImageIndex === 0);
+                navRight.disabled = (currentImageIndex === currentFilmImages.length - 1);
+            }
+
+            // Function to handle image navigation (called by buttons)
+            function navigateImage(direction) {
+                const newIndex = currentImageIndex + direction;
+
+                if (newIndex >= 0 && newIndex < currentFilmImages.length) {
+                    currentImageIndex = newIndex;
+                    updateCarouselUI();
+                }
+            }
+
+
+            // 5. Function to show the Modal with film details
+            function showDetailsModal(index) {
+                const film = filmographyData[index];
+                const modal = document.getElementById('details-modal');
+                const modalTitle = document.getElementById('modal-title');
+                
+                const modalRole = document.getElementById('modal-role');
+                const modalDate = document.getElementById('modal-date');
+                const modalPlatform = document.getElementById('modal-platform');
+                const modalEpisodes = document.getElementById('modal-episodes');
+                const modalLink = document.getElementById('modal-link');
+
+                if (!film || !modal) return;
+                
+                // 1. Initialize Image Carousel Data
+                currentFilmImages = [];
+                // Add all available image URLs (poster is the first image)
+                if (film.poster) currentFilmImages.push(film.poster);
+                if (film.image2) currentFilmImages.push(film.image2);
+                if (film.image3) currentFilmImages.push(film.image3);
+                if (film.image4) currentFilmImages.push(film.image4);
+                
+                // Set initial index
+                currentImageIndex = 0;
+                
+                // If only one image, hide the counter and navigation controls for simplicity
+                const posterContainer = document.getElementById('modal-poster-container');
+                const navElements = posterContainer.querySelectorAll('#nav-left, #nav-right, #image-counter');
+                navElements.forEach(el => el.classList.toggle('hidden', currentFilmImages.length <= 1));
+
+                // 2. Populate Modal data
+                modalTitle.textContent = film.title;
+                
+                // 3. Render Carousel UI
+                updateCarouselUI();
+
+                // 4. Details
+                modalRole.innerHTML = `<strong class="text-gray-900">Role:</strong> ${displayValue(film.role)}`;
+                modalDate.innerHTML = `<strong class="text-gray-900">Air Date:</strong> ${displayValue(film.date)}`;
+                modalPlatform.innerHTML = `<strong class="text-gray-900">Platform:</strong> ${displayValue(film.platform)}`;
+                modalEpisodes.innerHTML = `<strong class="text-gray-900">Episodes:</strong> ${displayValue(film.episodes)}`;
+
+                //modalLink.href = film.link;
+                // Dynamic link text based on content type
+                //modalLink.textContent = film.title.toLowerCase().includes('movie') || film.episodes.toLowerCase().includes('film') ? 'Watch Movie Now' : 'Watch Series Now';
+
+                // 5. Show Modal
+                modal.classList.remove('hidden', 'opacity-0');
+                modal.classList.add('opacity-100');
+            }
+
+            // 6. Function to close Modal
+            function closeDetailsModal() {
+                const modal = document.getElementById('details-modal');
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300); // Wait for transition to finish before hiding
+            }
+
+            // Fetch data when the page loads
+            window.onload = fetchFilmographyData;
+        </script>
 
         <!-- เพลง (Music) -->
         <section id="music" class="py-16 px-4 md:py-24 md:px-8 bg-white border-b border-gray-200">
