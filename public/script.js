@@ -6,6 +6,7 @@ tailwind.config = {
                 'primary-blue': '#3b82f6', // blue-500
                 'secondary-blue': '#bfdbfe', // blue-200
                 'accent-light': '#eff6ff', // blue-50
+                'card-bg': '#FFFFFF',
             },
             fontFamily: {
                 sans: ['Bai Jamjuree', 'sans-serif'],
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ซ่อนเมนูย่อยทั้งหมดก่อน
     document.querySelectorAll('[id$="-submenu"]').forEach(submenu => submenu.classList.add('hidden'));
     document.querySelectorAll('[id$="-chevron"]').forEach(chevron => chevron.classList.remove('rotate-180'));
-
+    
     const button = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -89,8 +90,6 @@ function closeMobileMenu() {
     closeIcon.classList.add('hidden');
     button.setAttribute('aria-expanded', 'false');
 }
-
-
 
 // popup
 let currentMediaIndex = 0;
