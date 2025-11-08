@@ -600,6 +600,24 @@
                                     default: return 'text-gray-800';
                                 }
                             };
+                            const parseArtists = (name) => {
+                                if (name === "PTTP") return ["TeeTee", "Por"];
+                                return [name];
+                            };
+                            const artistImages = {
+                                "Por": "https://pbs.twimg.com/media/GuB0uEoWMAAHVIT?format=jpg&name=large",
+                                "TeeTee": "https://pbs.twimg.com/media/Gt93Ot5WYAAMRKO?format=jpg&name=4096x4096",
+                                "DEXX": "https://pbs.twimg.com/media/G2veDg5bcAAwDpN?format=jpg&name=large"
+                            };
+                            const artistHTML = parseArtists(artist).map(a => `
+                                <div class="flex items-center bg-gray-100 rounded-full px-3 py-1 shadow-sm">
+                                    <img src="${artistImages[a] || 'https://placehold.co/64x64'}" 
+                                        alt="${a}" 
+                                        class="w-6 h-6 rounded-full object-cover mr-2">
+                                    <span class="text-gray-800 font-semibold text-sm">${a}</span>
+                                </div>
+                            `).join('');
+                            
                             return `
                                 <div class="p-4 bg-white rounded-lg border-l-4 schedule-item flex flex-col md:flex-row items-start shadow-sm                                    
                                     ${
@@ -633,6 +651,9 @@
                                                             </span>` : ''}
                                                     </div>
                                                 ` : ''}
+                                                <div class="mt-1 mb-2 text-xs flex flex-wrap gap-2">
+                                                    ${artistHTML}
+                                                </div>
                                                 ${time ? `<p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-clock"></i> ${time}</p>` : ''}
                                                 ${location ? `
                                                     <p class="mt-1 mb-1 text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> ${location}</p>
