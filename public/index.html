@@ -255,7 +255,7 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-blue text-center mb-12">
                     Series
                 </h2>
-                <div id="filmography-list" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div id="filmography-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                     <p class="text-center col-span-full p-8 text-gray-600">Loading filmography data...</p>
                 </div>
             </div>
@@ -316,11 +316,7 @@
 
             const GSHEET_URL = `/api/spreadsheets?range=${encodeURIComponent(range)}`;
             
-            const keys = ['title', 'role', 'date', 'platform', 'episodes', 'link', 'link2', 'poster', 'image2', 'image3', 'image4'];
-
-            function displayValue(value) {
-                return value ? value : '-';
-            }
+            const keys = ['title', 'role', 'role2', 'date', 'platform', 'episodes', 'link', 'link2', 'poster', 'image2', 'image3', 'image4'];
 
             // 2. Function to parse the Sheets V4 JSON response
             function parseSheetsV4Data(json) {
@@ -396,18 +392,24 @@
 
                 // Create Cards using the user's requested structure (3:4 aspect ratio)
                 listContainer.innerHTML = filmographyData.map((film, index) => `
-                    <div class="bg-white p-6 rounded-xl shadow-xl card-hover flex flex-col h-full cursor-pointer transition duration-300" onclick="showDetailsModal(${index})">
-                        <div class="w-full aspect-[3/4] overflow-hidden rounded-lg mb-4">
+                    <div class="bg-card-bg rounded-xl shadow-lg hover:shadow-2xl transition duration-300 overflow-hidden cursor-pointer" onclick="showDetailsModal(${index})">
+                        <!-- โปสเตอร์และชื่อเรื่อง -->
+                        <div class="relative">
                             <img 
                                 src="${film.poster}" 
-                                alt="Poster for ${film.title}" 
-                                class="w-full h-full object-cover"
-                                onerror="this.onerror=null;this.src='https://placehold.co/300x400/cccccc/333333?text=POSTER+N/A';"
+                                alt="โปสเตอร์ ${film.title}" 
+                                class="w-full aspect-[3/4] object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Poster+N/A';"
                             >
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/80 to-transparent p-4">
+                                <h3 class="text-2xl font-bold text-white leading-tight">${film.title}</h3>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-1">${film.title}</h3>
-                        <p class="text-gray-600 mb-2">${film.role}</p>
-                        <!-- Removed the link here, kept the modal trigger on the whole div -->
+
+                        <!-- ข้อมูลหลัก -->
+                        <div class="p-4">
+                            <span class="text-lg font-semibold text-gray-800">Role: ${film.role2 || '-'}</span>
+                        </div>
                     </div>
                 `).join('');
             }
@@ -484,10 +486,10 @@
                 updateCarouselUI();
 
                 // 4. Details
-                modalRole.innerHTML = `<strong class="text-gray-900">Role:</strong> ${displayValue(film.role)}`;
-                modalDate.innerHTML = `<strong class="text-gray-900">Air Date:</strong> ${displayValue(film.date)}`;
-                modalPlatform.innerHTML = `<strong class="text-gray-900">Platform:</strong> ${displayValue(film.platform)}`;
-                modalEpisodes.innerHTML = `<strong class="text-gray-900">Episodes:</strong> ${displayValue(film.episodes)}`;
+                modalRole.innerHTML = `<strong class="text-gray-900">Role:</strong> ${film.role || '-'}`;
+                modalDate.innerHTML = `<strong class="text-gray-900">Air Date:</strong> ${film.date || '-'}`;
+                modalPlatform.innerHTML = `<strong class="text-gray-900">Platform:</strong> ${film.platform || '-'}`;
+                modalEpisodes.innerHTML = `<strong class="text-gray-900">Episodes:</strong> ${film.episodes || '-'}`;
 
                 //modalLink.href = film.link;
                 // Dynamic link text based on content type
