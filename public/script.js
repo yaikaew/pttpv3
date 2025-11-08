@@ -34,27 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[id$="-submenu"]').forEach(submenu => submenu.classList.add('hidden'));
     document.querySelectorAll('[id$="-chevron"]').forEach(chevron => chevron.classList.remove('rotate-180'));
 
-    // ตรวจสอบว่าหน้า URL มี hash หรือไม่
-    const hash = window.location.hash;
-    if(hash) {
-        // หาลิงก์ที่ href ตรงกับ hash
-        const activeLink = document.querySelector(`a[href="${hash}"]`);
-        if(activeLink) {
-        // หา submenu ของลิงก์นี้ (ถ้ามี)
-        const submenu = activeLink.closest('[id$="-submenu"]');
-        if(submenu) {
-            submenu.classList.remove('hidden');
-            // หมุนลูกศร toggle ให้ถูกต้อง
-            const toggleButton = submenu.previousElementSibling; // สมมติ toggle อยู่ก่อน submenu
-            if(toggleButton) {
-                toggleButton.setAttribute('aria-expanded', 'true');
-                const chevron = toggleButton.querySelector('i[id$="-chevron"]');
-                if(chevron) chevron.classList.add('rotate-180');
-            }
-        }
-        }
-    }
-    
     const button = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
