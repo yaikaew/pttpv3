@@ -347,11 +347,6 @@
                 if (listContainer) {
                     listContainer.innerHTML = '<p class="text-center col-span-full p-8 text-gray-600">Loading filmography data...</p>';
                 }
-                
-                if (!API_KEY) {
-                    listContainer.innerHTML = '<p class="text-red-600 text-center col-span-full p-8 bg-white rounded-xl shadow-lg">⚠️ API_KEY is missing. Please provide your Google API Key and ensure Sheets API is enabled.</p>';
-                    return;
-                }
 
                 try {
                     const response = await fetch(GSHEET_URL);
