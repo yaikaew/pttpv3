@@ -23,15 +23,13 @@ function openLink(url) {
 // DOM Ready Logic
 // ---------------------------------------------------------------------
 
-// Function to replace lucide-icon tags with actual SVG elements
 function replaceIcons() {
     lucide.createIcons();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    replaceIcons(); // Call to render icons after DOM content is loaded
+    replaceIcons();
     
-    // 1. Mobile Main Menu Toggle
     const button = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -52,29 +50,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 2. Mobile Shows Submenu Toggle
-    const showsToggle = document.getElementById('mobile-shows-toggle');
-    const showsSubmenu = document.getElementById('mobile-shows-submenu');
-    const showsChevron = document.getElementById('mobile-shows-chevron');
-
-    showsToggle.addEventListener('click', (e) => {
-        e.preventDefault(); // ป้องกันไม่ให้ปุ่มทำหน้าที่อื่นนอกจาก Toggle
-        const isShowsExpanded = showsSubmenu.classList.contains('hidden');
+    document.querySelectorAll('button[id$="-toggle"]').forEach(button => {
+        const submenuId = button.id.replace('-toggle', '-submenu');
+        const chevronId = button.id.replace('-toggle', '-chevron');
+        const submenu = document.getElementById(submenuId);
+        const chevron = document.getElementById(chevronId);
         
-        showsSubmenu.classList.toggle('hidden');
-        
-        if (isShowsExpanded) {
-            showsToggle.setAttribute('aria-expanded', 'true');
-            showsChevron.classList.add('rotate-180');
-        } else {
-            showsToggle.setAttribute('aria-expanded', 'false');
-            showsChevron.classList.remove('rotate-180');
-        }
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isExpanded = submenu.classList.contains('hidden');
+            
+            submenu.classList.toggle('hidden');
+            
+            if (isExpanded) {
+                button.setAttribute('aria-expanded', 'true');
+                chevron.classList.add('rotate-180');
+            } else {
+                button.setAttribute('aria-expanded', 'false');
+                chevron.classList.remove('rotate-180');
+            }
+        });
     });
-
 });
 
-// Function to close the mobile menu when a link is clicked
+// Function ปิดเมนูมือถือเมื่อคลิกลิงก์
 function closeMobileMenu() {
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
@@ -86,6 +85,7 @@ function closeMobileMenu() {
     closeIcon.classList.add('hidden');
     button.setAttribute('aria-expanded', 'false');
 }
+
 
 
 // popup
