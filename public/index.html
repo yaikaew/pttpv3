@@ -48,26 +48,9 @@
                     </div>
 
                     <!-- Works Dropdown -->
-                    <div class="relative group">
-                        <button class="flex items-center text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150 focus:outline-none">
-                            <i data-lucide="radio" class="inline-block w-4 h-4 mr-1"></i> Shows
-                            <i data-lucide="chevron-down" class="ml-1 w-4 h-4 transition-transform duration-200 group-hover:rotate-180"></i>
-                        </button>
-                        <div class="absolute top-full hidden group-hover:block w-52 bg-white shadow-2xl rounded-xl ring-1 ring-black ring-opacity-5 z-20 overflow-hidden">
-                            <a href="#online-shows" class="block px-4 py-2 text-sm text-gray-700 hover:bg-accent-light hover:text-primary-blue transition duration-150 border-t border-gray-100">
-                                <i data-lucide="monitor" class="inline-block w-4 h-4 mr-1"></i> Online Shows
-                            </a>
-                            <a href="#behind-the-scenes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-accent-light hover:text-primary-blue transition duration-150 border-t border-gray-100">
-                                <i data-lucide="video" class="inline-block w-4 h-4 mr-1"></i> Behind The Scenes
-                            </a>
-                            <a href="#interviews" class="block px-4 py-2 text-sm text-gray-700 hover:bg-accent-light hover:text-primary-blue transition duration-150 border-t border-gray-100">
-                                <i data-lucide="messages-square" class="inline-block w-4 h-4 mr-1"></i> Press Interviews
-                            </a>
-                            <a href="#live" class="block px-4 py-2 text-sm text-gray-700 hover:bg-accent-light hover:text-primary-blue transition duration-150 border-t border-gray-100">
-                                <i data-lucide="smartphone" class="inline-block w-4 h-4 mr-1"></i> Live
-                            </a>
-                        </div>
-                    </div>
+                     <a href="#shows" class="text-gray-600 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-sm font-medium transition duration-150">
+                        <i data-lucide="radio" class="inline-block w-4 h-4 mr-1"></i> Shows
+                    </a>
 
                     <!-- Brand & Awards Dropdown -->
                     <div class="relative group">
@@ -128,26 +111,9 @@
                     </div>
                 </div>
 
-                <div>
-                    <button id="mobile-shows-toggle" class="w-full flex justify-between items-center text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" aria-expanded="false">
-                        <span><i data-lucide="radio" class="inline-block w-4 h-4 mr-2"></i> Shows</span>
-                        <i data-lucide="chevron-down" id="mobile-shows-chevron" class="w-4 h-4 transform transition-transform duration-200"></i>
-                    </button>
-                    <div id="mobile-shows-submenu" class="pl-6 pt-1 hidden space-y-1">
-                        <a href="#online-shows" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
-                            <i data-lucide="monitor" class="inline-block w-4 h-4 mr-2"></i> Online Shows
-                        </a>
-                        <a href="#behind-the-scenes" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
-                            <i data-lucide="video" class="inline-block w-4 h-4 mr-2"></i> Behind The Scenes
-                        </a>
-                        <a href="#interviews" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
-                            <i data-lucide="messages-square" class="inline-block w-4 h-4 mr-2"></i> Press Interviews
-                        </a>
-                        <a href="#live" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
-                            <i data-lucide="smartphone" class="inline-block w-4 h-4 mr-2"></i> Live
-                        </a>
-                    </div>
-                </div>
+                <a href="#shows" class="block text-gray-800 hover:bg-primary-blue hover:text-white px-3 py-2 rounded-lg text-base font-medium transition duration-150" onclick="closeMobileMenu()">
+                    <i data-lucide="radio" class="inline-block w-4 h-4 mr-2"></i> Shows
+                </a>
 
                 <!-- Brand & Awards -->
                 <div>
@@ -393,7 +359,7 @@
                             <img 
                                 src="${film.poster}" 
                                 alt="โปสเตอร์ ${film.title}" 
-                                class="w-full aspect-[3/4] object-cover"
+                                class="w-full aspect-[4/5] object-cover"
                                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/cccccc/333333?text=Poster+N/A';"
                             >
                             <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/80 to-transparent p-4">
@@ -624,25 +590,27 @@
                     Shows
                 </h2>
 
-                <h3 class="text-2xl font-bold mt-8 mb-4 text-primary-blue" id="online-shows">💻 Online Shows</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="onlineGrid"></div>
-
-                <h3 class="text-2xl font-bold mt-8 mb-4 text-primary-blue" id="behind-the-scenes">🎬 BTS (Behind The Scenes)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="btsGrid"></div>
-
-                <h3 class="text-2xl font-bold mt-8 mb-4 text-primary-blue" id="interviews">📌 Press Interviews</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="pressGrid"></div>
-
-                <h3 class="text-2xl font-bold mt-8 mb-4 text-primary-blue" id="live">📱 Live</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="liveGrid"></div>
-
+                <!-- Tab Navigation (New Feature) -->
+                <div id="media-tabs" class="flex justify-center mb-8 border-b border-blue-200 space-x-4 overflow-x-auto pb-1">
+                    <!-- 'All' is active by default -->
+                    <!-- <button data-category="all" class="tab-button px-4 py-3 text-lg font-medium text-blue-600 border-b-4 border-blue-500 whitespace-nowrap">All</button>  -->
+                    <button data-category="online" class="tab-button px-4 py-3 text-lg font-medium text-blue-600 border-b-4 border-blue-500 whitespace-nowrap">Online</button>
+                    <button data-category="bts" class="tab-button px-4 py-3 text-lg font-medium text-gray-500 hover:text-blue-600 border-b-4 border-transparent whitespace-nowrap">BTS</button>
+                    <button data-category="press" class="tab-button px-4 py-3 text-lg font-medium text-gray-500 hover:text-blue-600 border-b-4 border-transparent whitespace-nowrap">Press</button>
+                    <button data-category="live" class="tab-button px-4 py-3 text-lg font-medium text-gray-500 hover:text-blue-600 border-b-4 border-transparent whitespace-nowrap">Live</button>
+                    <button data-category="specials" class="tab-button px-4 py-3 text-lg font-medium text-gray-500 hover:text-blue-600 border-b-4 border-transparent whitespace-nowrap">Specials</button>
+                </div>
+                
+                <div id="media-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Media cards will be dynamically loaded here -->
+                </div>
             </div>
         </section>
         <script>
             function createShowscard(row) {
                 const [type, artist, date, title, link, id, thumbnail, channel, imgchannel, duration] = row;
                 return `
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover w-full max-w-md">
+                <div data-category="${type.toLowerCase()}" class="media-card bg-white rounded-xl shadow-lg overflow-hidden card-hover w-full max-w-md">
                     <a href="${link}" target="_blank" class="block">
                         <div class="relative aspect-video">
                             <img src="${thumbnail}" alt="thumbnail" class="w-full h-full object-cover">
@@ -665,49 +633,64 @@
             }
 
             function loadShowsData(range) {
-                const pressGrid = document.getElementById("pressGrid");
-                const btsGrid = document.getElementById("btsGrid");
-                const onlineGrid = document.getElementById("onlineGrid");
-                const liveGrid = document.getElementById("liveGrid");
-
-                pressGrid.innerHTML = btsGrid.innerHTML = onlineGrid.innerHTML = liveGrid.innerHTML = `<div class="loading-spinner"></div>`;
+                const container = document.getElementById("media-grid");
+                container.innerHTML = `<p>loading...</p>`;
 
                 fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
                     .then(res => res.json())
                     .then(data => {
-                        let rows = data.values || [];
+                        const rows = data.values || [];
                         if (rows.length === 0) {
-                            pressGrid.innerHTML = btsGrid.innerHTML = onlineGrid.innerHTML = liveGrid.innerHTML = "<p>no data</p>";
+                            container.innerHTML = "<p>no data</p>";
                             return;
                         }
 
-                        // ล้าง loader
-                        pressGrid.innerHTML = "";
-                        btsGrid.innerHTML = "";
-                        onlineGrid.innerHTML = "";
-                        liveGrid.innerHTML = "";
+                        container.innerHTML = rows.map(createShowscard).join("");
 
-                        rows.forEach(row => {
-                            const type = row[0]?.trim();
-                            if (type === "Press") {
-                                pressGrid.innerHTML += createShowscard(row);
-                            } else if (type === "BTS") {
-                                btsGrid.innerHTML += createShowscard(row);
-                            } else if (type === "Online") {
-                                onlineGrid.innerHTML += createShowscard(row);
-                            } else if (type === "Live") {
-                                liveGrid.innerHTML += createShowscard(row);
-                            }
-                        });
+                        // ✅ หลังจากโหลดข้อมูลเสร็จแล้ว ค่อย initialize tab filter
+                        initTabs();
                     })
                     .catch(err => {
                         console.error(err);
-                        pressGrid.innerHTML = btsGrid.innerHTML = onlineGrid.innerHTML = liveGrid.innerHTML = "<p>error fetch data</p>";
+                        container.innerHTML = "<p>error fetch data</p>";
                     });
             }
 
+            function initTabs() {
+                const tabs = document.querySelectorAll('.tab-button');
+                const mediaCards = document.querySelectorAll('.media-card');
+
+                function filterMedia(category) {
+                    const showAll = category === 'all';
+                    mediaCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        card.style.display = (showAll || cardCategory === category) ? 'block' : 'none';
+                    });
+                }
+
+                function setActiveTab(clickedTab) {
+                    tabs.forEach(tab => {
+                        tab.classList.add('text-gray-500', 'border-transparent');
+                        tab.classList.remove('text-blue-600', 'border-blue-500');
+                    });
+                    clickedTab.classList.remove('text-gray-500', 'border-transparent');
+                    clickedTab.classList.add('text-blue-600', 'border-blue-500');
+                }
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const category = this.getAttribute('data-category');
+                        filterMedia(category);
+                        setActiveTab(this);
+                    });
+                });
+
+                // Default: show all on load
+                filterMedia('online');
+            }
+
             document.addEventListener('DOMContentLoaded', () => {
-                loadShowsData('shows!A2:J');
+                loadShowsData('shows!A2:Z');
             });
         </script>
 
