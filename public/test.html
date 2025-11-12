@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
+    <script src="config.js"></script>
 </head>
 <body class="bg-accent-light text-gray-800">
 
@@ -280,7 +281,7 @@
 
             const range = 'series!A2:Z';
 
-            const GSHEET_URL = `/api/spreadsheets?range=${encodeURIComponent(range)}`;
+            const GSHEET_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`;
             
             const keys = ['title', 'role', 'role2', 'date', 'platform', 'episodes', 'link', 'link2', 'poster', 'image2', 'image3', 'image4'];
 
@@ -507,7 +508,7 @@
                 const container = document.getElementById("discographyGrid");
                 container.innerHTML = `<div class="loading-spinner"></div>`;
 
-                fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
                     let rows = data.values || [];
@@ -559,7 +560,7 @@
                 const container = document.getElementById("magazineGrid");
                 container.innerHTML = `<div class="loading-spinner"></div>`;
 
-                fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
                     let rows = data.values || [];
@@ -636,7 +637,7 @@
                 const container = document.getElementById("media-grid");
                 container.innerHTML = `<p>loading...</p>`;
 
-                fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`)
                     .then(res => res.json())
                     .then(data => {
                         const rows = data.values || [];
@@ -721,7 +722,7 @@
                 const container = document.getElementById("presenterGrid");
                 container.innerHTML = `<div class="loading-spinner"></div>`;
                 
-                fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
                     let rows = data.values || [];
@@ -779,7 +780,7 @@
                 const container = document.getElementById("awardsGrid");
                 container.innerHTML = `<div class="loading-spinner"></div>`;
 
-                fetch(`/api/spreadsheets?range=${encodeURIComponent(range)}`)
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`)
                 .then(res => res.json())
                 .then(data => {
                     let rows = data.values || [];
@@ -951,7 +952,7 @@
                 const range = 'Sheet1!A2:Z'; 
 
                 try {
-                    const url = `/api/spreadsheets?range=${encodeURIComponent(range)}`;
+                    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`;
                     const res = await fetch(url);
                     const data = await res.json();
                     const rows = data.values || [];
